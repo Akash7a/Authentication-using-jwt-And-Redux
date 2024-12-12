@@ -5,14 +5,16 @@ import { logout, logoutUser } from '../features/auth/AuthSlice.js';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { user, loading, error,token } = useSelector((state) => state.auth);
-
+  const { user, loading, error } = useSelector((state) => state.auth);
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     try {
       if (token) {
-          dispatch(logoutUser());
-          dispatch(logout());  
+        dispatch(logoutUser());
+        dispatch(logout());
+        navigate("/login");
       }
     } catch (error) {
       console.error("Logout Failed", error);

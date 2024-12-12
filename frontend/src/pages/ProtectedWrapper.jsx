@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const ProtectedWrapper = ({ children }) => {
-  const { token } = useSelector((state) => state.auth);
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,7 +12,7 @@ const ProtectedWrapper = ({ children }) => {
   }, [token, navigate]);
 
   if (!token) {
-    return null; 
+    return null;
   }
 
   return children;

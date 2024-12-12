@@ -7,7 +7,7 @@ const UserLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { success, loading, error } = useSelector((state) => state.auth);
+  const { success, loading, error ,token} = useSelector((state) => state.auth);
 
   const [userData, setUserData] = useState({
     emailOrUsername: "",
@@ -25,13 +25,14 @@ const UserLogin = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(loginUser(userData));
-      if (success) {
-        navigate("/home")
-      }
+
   };
-
-
-
+  useEffect(() => {
+    if (token) {
+      navigate("/home");
+    }
+  }, [success, navigate]);
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gradient-to-br from-gray-800 to-black shadow-lg rounded-lg p-8 w-full max-w-md">
